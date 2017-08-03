@@ -14,9 +14,7 @@ php:
   - hhvm
   - nightly
 
-addons:
-    code_climate:
-        repo_token: f247b0d7edc57539b62b4be98713f14f858c80b62df7e894db65e1b4fe705027
+
 
 before_install:
     - composer install
@@ -33,6 +31,7 @@ jobs:
     - stage: Code Climate Coverage
       env:
         global:
+            - CC_TEST_REPORTER_ID=775b3fec99011b113aa9720bbfdecb844f26272d3bc4ec3959a7ccbf5b41cbeb
             - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
       script:
         - ./cc-test-reporter before-build
